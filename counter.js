@@ -1,4 +1,4 @@
-var expect = require('expect');
+const { createStore } = require ('redux');
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -11,28 +11,8 @@ const counter = (state = 0, action) => {
   }
 }
 
-expect(
-  counter(0, { type: 'INCREMENT'})
-).toEqual(1);
+// const { createStore } = Redux;
 
-expect(
-  counter(1, { type: 'INCREMENT'})
-).toEqual(2);
+const myStore = createStore(counter);
 
-expect(
-  counter(2, { type: 'DECREMENT'})
-).toEqual(1);
-
-expect(
-  counter(1, { type: 'DECREMENT'})
-).toEqual(0);
-
-expect(
-  counter(1, { type: 'SOMETHING_ELSE'})
-).toEqual(1);
-
-expect(
-  counter(undefined, {})
-).toEqual(0);
-
-console.log('Tests passed');
+console.log(myStore.getState());

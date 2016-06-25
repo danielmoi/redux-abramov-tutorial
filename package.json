@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "expect": "^1.20.1"
+    "expect": "^1.20.1",
+    "redux": "^3.5.2"
   }
 }
