@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
 
 // get `createStore` function from Redux
-import { createStore } from 'redux';
+// import { createStore } from 'redux';
+const { createStore } = Redux;
 
 // our reducer
 const counter = (state = 0, action) => {
@@ -21,14 +22,25 @@ const counter = (state = 0, action) => {
 const myStore = createStore(counter);
 
 // Counter component
-const Counter = ( { value } ) => (
-  <h1>{ value }</h1>
+const Counter = ({
+  value,
+  onIncrement,
+  onDecrement
+}) => (
+  <div>
+    <h1>{ value }</h1>
+    <button onClick={ onIncrement }>+</button>
+    <button onClick={ onDecrement }>-</button>
+  </div>
 );
 
 // our method to update the browser screen
 const _render = () => {
   ReactDOM.render(
-    <Counter value={ myStore.getState() }/>,
+    <Counter
+      value={ myStore.getState() }
+      onIncrement={ () => myStore.dispatch( { type: 'INCREMENT'} ) }
+      onDecrement={ () => myStore.dispatch( { type: 'DECREMENT'} ) }/>,
     document.getElementById('root')
   )
 };
