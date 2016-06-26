@@ -1,17 +1,3 @@
-const counter = (state = 0, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
-    default:
-      return state;
-  }
-}
-
-// get `createStore` method from Redux
-// const { createStore } = Redux;
-
 // our own `createStore` method
 const createStore = (reducer) => {
   // keep our state in a variable
@@ -47,22 +33,3 @@ const createStore = (reducer) => {
   // this object is called our Redux STORE
   return { getState, dispatch, subscribe };
 };
-
-
-
-
-// create store using `createStore` method
-const myStore = createStore(counter);
-
-const render = () => {
-  document.body.innerText = myStore.getState();
-};
-
-myStore.subscribe(render);
-
-// call it to render initial state
-render();
-
-document.addEventListener('click', () => {
-  myStore.dispatch({ type: 'INCREMENT' });
-});
