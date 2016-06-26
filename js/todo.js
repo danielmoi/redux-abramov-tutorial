@@ -1,6 +1,9 @@
 const toggleTodo = (todo) => {
-  todo.completed = !todo.completed;
-  return todo;
+  return {
+    id: todo.id,
+    text: todo.text,
+    completed: !todo.completed
+  };
 };
 
 const testToggleTodo = () => {
@@ -14,6 +17,8 @@ const testToggleTodo = () => {
     text: 'Learn Redux',
     completed: true
   };
+
+  deepFreeze(todoBefore);
 
   expect(
     toggleTodo(todoBefore)
