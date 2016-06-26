@@ -45,7 +45,8 @@ const _render = () => {
   )
 };
 
+// every time our state changes (every time an action is dispatched), _render will be called
 myStore.subscribe(_render);
 
-// call it to render initial state
+// call _render once to render initial state
 _render();
