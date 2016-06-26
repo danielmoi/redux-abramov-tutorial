@@ -21,6 +21,14 @@ const incrementCounter = (list, index) => {
   ];
 };
 
+const decrementCounter = (list, index) => {
+  return [
+    ...list.slice(0, index),
+    list[index] - 1,
+    ...list.slice(index + 1)
+  ];
+};
+
 const testAddCounter = () => {
   const listBefore = [];
   const listAfter = [0];
@@ -52,6 +60,17 @@ const testIncrementCounter = () => {
 
   expect(
     incrementCounter(listBefore, 1)
+  ).toEqual(listAfter);
+};
+
+const testDecrementCounter = () => {
+  const listBefore = [0, 11, 20];
+  const listAfter = [0, 10, 20];
+
+  deepFreeze(listBefore);
+
+  expect(
+    decrementCounter(listBefore, 1)
   ).toEqual(listAfter);
 };
 
