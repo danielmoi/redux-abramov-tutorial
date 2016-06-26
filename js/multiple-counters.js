@@ -11,7 +11,11 @@ const removeCounter = (list, index) => {
     ...list.slice(0, index),
     ...list.slice(index + 1 )
   ];
+};
 
+const incrementCounter = (list, index) => {
+  list[index]++;
+  return list;
 };
 
 const testAddCounter = () => {
@@ -35,6 +39,15 @@ const testRemoveCounter = () => {
     removeCounter(listBefore, 1)
   ).toEqual(listAfter);
 
+};
+
+const testIncrementCounter = () => {
+  const listBefore = [0, 10, 20];
+  const listAfter = [0, 11, 20];
+
+  expect(
+    incrementCounter(listBefore, 1)
+  ).toEqual(listAfter);
 };
 
 testAddCounter();
