@@ -1,9 +1,9 @@
 const toggleTodo = (todo) => {
-  return {
-    id: todo.id,
-    text: todo.text,
-    completed: !todo.completed
-  };
+  return Object.assign(
+    {},
+    todo,
+    { completed: !todo.completed }
+  );
 };
 
 const testToggleTodo = () => {
