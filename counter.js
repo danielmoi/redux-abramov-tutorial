@@ -1,4 +1,4 @@
-const { createStore } = require ('redux');
+const { createStore } = Redux;
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -14,20 +14,15 @@ const counter = (state = 0, action) => {
 // create store
 const myStore = createStore(counter);
 
-// .getState method
-console.log(myStore.getState());
-
-
-// .dispatch method
-myStore.dispatch({ type: 'INCREMENT' });
-
-console.log(myStore.getState());
-
-// .subscribe method
-myStore.subscribe( () => {
+const render = () => {
   document.body.innerText = myStore.getState();
-});
+};
+
+myStore.subscribe(render);
+
+// call it to render initial state
+render();
 
 document.addEventListener('click', () => {
-  myStore.dispatch({ type: 'INCREMENT' })
+  myStore.dispatch({ type: 'INCREMENT' });
 });
