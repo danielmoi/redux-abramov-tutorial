@@ -3,7 +3,7 @@ const expect = require('expect');
 import deepFreeze from 'deep-freeze';
 
 const addCounter = (list) => {
-  return list.concat([0]);
+  return [...list, 0];
 };
 
 const testAddCounter = () => {
