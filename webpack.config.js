@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './js/counter.js'
+    './js/multiple-counters.js'
   ],
   output: {
     path: './dist',
