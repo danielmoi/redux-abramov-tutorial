@@ -42,12 +42,36 @@ const todos = (state=[], action) => {
       return state;
   }
 };
+///////////////////////////////////////////////////////////////////////////////
+
+const visibilityFilter = ( state = 'SHOW_ALL', action ) => {
+  switch(action.type) {
+    case 'SET_VISIBILITY_FILTER':
+      return action.filter;
+    default:
+      return state;
+  }
+};
+
+///////////////////////////////////////////////////////////////////////////////
+
+const todoApp = ( state={}, action) => {
+  return {
+    todos: todos( state.todos, action),
+    visibilityFilter: visibilityFilter(state.visibilityFilter, action)
+  };
+};
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
 import { createStore } from 'redux';
 
-const myStore = createStore(todos);
+const myStore = createStore(todoApp);
+// when the store is created, our reducer is called
+// our state and action are undefined
+// 1. todos: because `action` is undefined, this will trigger the `default` case, and we are returned state (which has a default of empty array [])
+// 2. visibilityFilter: because `action` is undefined, this will trigger the `default` case, and we are returned state (which has a default of `SHOW_ALL`)
 
 // Initial state
 console.log('Initial state:');
