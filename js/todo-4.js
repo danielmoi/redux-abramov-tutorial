@@ -44,6 +44,7 @@ const todos = (state=[], action) => {
 };
 ///////////////////////////////////////////////////////////////////////////////
 
+// Sets a visibility filter for the ENTIRE app
 const visibilityFilter = ( state = 'SHOW_ALL', action ) => {
   switch(action.type) {
     case 'SET_VISIBILITY_FILTER':
@@ -109,6 +110,17 @@ myStore.dispatch({
 console.log('Current state:');
 console.log(myStore.getState());
 console.log('----------------');
+
+//
+console.log('Dispatching SET_VISIBILITY_FILTER');
+myStore.dispatch({
+  type: 'SET_VISIBILITY_FILTER',
+  filter: 'SHOW_COMPLETED'
+});
+console.log('Current state:');
+console.log(myStore.getState());
+console.log('----------------');
+
 
 ///////////////////////////////////////////////////////////////////////////////
 const testAddTodo = () => {
