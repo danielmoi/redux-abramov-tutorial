@@ -82,8 +82,8 @@ import { combineReducers } from 'redux';
 
 const todoApp = combineReducers({
   // state-field: reducer responsible
-  todos: todos,
-  visibilityFilter: visibilityFilter
+  todos,
+  visibilityFilter
 
 })
 
