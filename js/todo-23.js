@@ -138,9 +138,7 @@ const TodoList = ({
   </ul>
 );
 
-const AddTodo = ( {
-  onAddClick
-} ) => {
+const AddTodo = () => {
   let input;
 
   return (
@@ -149,7 +147,11 @@ const AddTodo = ( {
           input = node;
         }}/>
       <button onClick={ () => {
-          onAddClick(input.value);
+          myStore.dispatch({
+            type: 'ADD_TODO',
+            id: nextTodoID,
+            text: input.value
+          })
           input.value = '';
         }}>
         Add Todo
@@ -269,44 +271,16 @@ const Footer = () => {
 
 let nextTodoID = 0;
 
-const TodoApp = ({
-  todos,
-  visibilityFilter
-}) => (
+const TodoApp = () => (
   <div>
-    <AddTodo
-      onAddClick={ (text) => {
-        myStore.dispatch({
-          type: 'ADD_TODO',
-          id: nextTodoID++,
-          text
-        });
-      }}/>
-
-
+    <AddTodo />
     <VisibleTodoList />
-
-    <Footer
-      visibilityFilter={ visibilityFilter }
-      onFilterClick={ filter => {
-        myStore.dispatch({
-          type: 'SET_VISIBILITY_FILTER',
-          filter
-        })
-      }
-      }
-    />
+    <Footer />
   </div>
 );
 
 
-const render = () => {
-  ReactDOM.render(
-    <TodoApp
-      { ...myStore.getState() } />,
-    document.getElementById('root')
-  )
-};
-
-myStore.subscribe(render);
-render();
+ReactDOM.render(
+  <TodoApp />,
+  document.getElementById('root')
+);
