@@ -96,8 +96,14 @@ import ReactDOM from 'react-dom';
 
 const FilterLink = ({
   filter,
+  currentFilter,
   children
 }) => {
+  if (filter === currentFilter) {
+    return (
+      <span>{ children }</span>
+    )
+  }
   return (
     <a href="#"
       onClick={ (e) => {
@@ -106,7 +112,11 @@ const FilterLink = ({
           type: 'SET_VISIBILITY_FILTER',
           filter
         })
-      }}>
+      }}
+      style={ { color: filter === currentFilter ?
+          "red" :
+          "green"
+    }}>
         { children }
       </a>
   )
@@ -128,9 +138,17 @@ let nextTodoID = 0;
 
 class TodoApp extends Component {
   render() {
+
+    const {
+      todos,
+      visibilityFilter
+    } = this.props;
+
     const visibleTodos = getVisibleTodos(
-      this.props.todos,
-      this.props.visibilityFilter );
+      todos,
+      visibilityFilter
+    );
+
 
     return (
       <div>
@@ -169,17 +187,20 @@ class TodoApp extends Component {
           Show:
           {' '}
           <FilterLink
-            filter="SHOW_ALL">
+            filter="SHOW_ALL"
+            currentFilter={ visibilityFilter }>
               ALL
             </FilterLink>
             {' '}
           <FilterLink
-            filter="SHOW_ACTIVE">
+            filter="SHOW_ACTIVE"
+            currentFilter={ visibilityFilter }>
               ACTIVE
             </FilterLink>
             {' '}
           <FilterLink
-            filter="SHOW_COMPLETED">
+            filter="SHOW_COMPLETED"
+            currentFilter={ visibilityFilter }>
               COMPLETED
             </FilterLink>
         </p>
@@ -192,8 +213,7 @@ class TodoApp extends Component {
 const render = () => {
   ReactDOM.render(
     <TodoApp
-      todos={ myStore.getState().todos }
-      visibilityFilter={ myStore.getState().visibilityFilter}/>,
+      { ...myStore.getState() } />,
     document.getElementById('root')
   )
 };
