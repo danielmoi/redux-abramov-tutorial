@@ -100,21 +100,23 @@ class TodoApp extends Component {
   render() {
     return (
       <div>
+        <input ref={ node => {
+            this.input = node;
+          }}/>
         <button onClick={ () => {
             myStore.dispatch({
               type: 'ADD_TODO',
-              text: 'Test',
+              text: this.input.value,
               id: nextTodoID++
             });
+            this.input.value = '';
           }}>
           Add Todo
         </button>
         <ul>
-          { this.props.todos.map( todo => {
-            return (
-            <li key={ todo.id }> { todo.text } </li>
-            )
-          })}
+          { this.props.todos.map( todo =>
+              <li key={ todo.id }> { todo.text } </li>
+          )}
         </ul>
 
       </div>
