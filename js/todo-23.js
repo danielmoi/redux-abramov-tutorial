@@ -158,6 +158,36 @@ const AddTodo = ( {
   )
 };
 
+class VisibleTodoList extends Component {
+  componentDidMount() {
+    this.unsubscribe = myStore.subscribe( () =>
+      this.forceUpdate()
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
+  render() {
+    const props = this.props;
+    const state = myStore.getState();
+
+    return (
+      <TodoList
+        todos={ getVisibleTodos(state.todos, state.visibilityFilter) }
+        onTodoClick={ id => {
+          myStore.dispatch({
+            type: 'TOGGLE_TODO',
+            id
+          })
+        }}
+      />
+
+    )
+  }
+}
+
 const Link = ({
   active,
   children,
@@ -254,20 +284,7 @@ const TodoApp = ({
       }}/>
 
 
-    <TodoList
-      todos={
-        getVisibleTodos(
-          todos,
-          visibilityFilter
-        )
-      }
-      onTodoClick={ id => {
-        myStore.dispatch({
-          type: 'TOGGLE_TODO',
-          id
-        });
-      }}
-    />
+    <VisibleTodoList />
 
     <Footer
       visibilityFilter={ visibilityFilter }
