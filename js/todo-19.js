@@ -112,10 +112,26 @@ const FilterLink = ({
   )
 }
 
+const getVisibleTodos = ( todos, filter ) => {
+  switch(filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_ACTIVE':
+      return todos.filter( t => !t.completed );
+    case 'SHOW_COMPLETED':
+      return todos.filter( t => t.completed );
+  }
+}
+
+
 let nextTodoID = 0;
 
 class TodoApp extends Component {
   render() {
+    const visibleTodos = getVisibleTodos(
+      this.props.todos,
+      this.props.visibilityFilter );
+
     return (
       <div>
         <input ref={ node => {
@@ -132,7 +148,7 @@ class TodoApp extends Component {
           Add Todo
         </button>
         <ul>
-          { this.props.todos.map( todo =>
+          { visibleTodos.map( todo =>
               <li
                 key={ todo.id}
                 onClick={ () => {
