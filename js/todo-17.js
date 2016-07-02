@@ -94,17 +94,38 @@ const myStore = createStore(todoApp);
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+let nextTodoID = 0;
+
 class TodoApp extends Component {
   render() {
     return (
-      <div>Hello</div>
+      <div>
+        <button onClick={ () => {
+            myStore.dispatch({
+              type: 'ADD_TODO',
+              text: 'Test',
+              id: nextTodoID++
+            });
+          }}>
+          Add Todo
+        </button>
+        <ul>
+          { this.props.todos.map( todo => {
+            return (
+            <li key={ todo.id }> { todo.text } </li>
+            )
+          })}
+        </ul>
+
+      </div>
     )
   }
 }
 
 const render = () => {
   ReactDOM.render(
-    <TodoApp />,
+    <TodoApp
+      todos={ myStore.getState().todos }/>,
     document.getElementById('root')
   )
 };
