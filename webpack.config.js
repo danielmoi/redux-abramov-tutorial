@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './js/todo-16.js'
+    './js/todo-17.js'
   ],
   output: {
     path: './dist',

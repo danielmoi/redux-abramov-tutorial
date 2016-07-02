@@ -78,19 +78,21 @@ const visibilityFilter = ( state = 'SHOW_ALL', action ) => {
 
 // NEW super-reducer
 
-const combineReducers = (reducers) => {
-  return (state = {}, action) => {
-    return Object.keys(reducers).reduce(
-      (nextState, key) => {
-        nextState[key] = reducers[key](
-          state[key],
-          action
-        );
-        return nextState;
-      }
-    ), {};
-  };
-};
+// const combineReducers = (reducers) => {
+//   return (state = {}, action) => {
+//     return Object.keys(reducers).reduce(
+//       (nextState, key) => {
+//         nextState[key] = reducers[key](
+//           state[key],
+//           action
+//         );
+//         return nextState;
+//       }
+//     ), {};
+//   };
+// };
+
+import { combineReducers } from 'redux';
 
 const todoApp = combineReducers({
   // state-field: reducer responsible
