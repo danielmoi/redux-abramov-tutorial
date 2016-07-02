@@ -165,22 +165,24 @@ const TodoList = ({
 );
 
 const AddTodo = ( {
-  
-} ) => (
-  <input ref={ node => {
-      this.input = node;
-    }}/>
-  <button onClick={ () => {
-      myStore.dispatch({
-        type: 'ADD_TODO',
-        text: this.input.value,
-        id: nextTodoID++
-      });
-      this.input.value = '';
-    }}>
-    Add Todo
-  </button>
-);
+  onAddClick
+} ) => {
+  let input;
+
+  return (
+    <div>
+      <input ref={ node => {
+          input = node;
+        }}/>
+      <button onClick={ () => {
+          onAddClick(input.value);
+          input.value = '';
+        }}>
+        Add Todo
+      </button>
+    </div>
+  )
+};
 
 let nextTodoID = 0;
 
@@ -200,7 +202,14 @@ class TodoApp extends Component {
 
     return (
       <div>
-        <AddTodo />
+        <AddTodo
+          onAddClick={ (text) => {
+            myStore.dispatch({
+              type: 'ADD_TODO',
+              id: nextTodoID++,
+              text
+            });
+          }}/>
 
 
         <TodoList
