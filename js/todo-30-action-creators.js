@@ -92,6 +92,20 @@ const addTodo = (text) => {
   };
 };
 
+const setVisibilityFilter = (filter) => {
+  return {
+    type: 'SET_VISIBILITY_FILTER',
+    filter
+  };
+};
+
+const toggleTodo = (id) => {
+  return {
+    type: 'TOGGLE_TODO',
+    id
+  };
+};
+
 //////////////////////////////////////////////////////////////////////////////
 
 // LET'S DO STUFF
@@ -181,10 +195,7 @@ const mapStateToTodoListProps = (state) => {
 const mapDispatchToTodoListProps = (dispatch) => {
   return {
     onTodoClick: (id) => {
-      dispatch({
-        type: 'TOGGLE_TODO',
-        id
-      })
+      dispatch( toggleTodo(id) );
     }
   }
 };
@@ -225,10 +236,9 @@ const mapStateToLinkProps = (state, ownProps) => {
 const mapDispatchToLinkProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      dispatch({
-        type: 'SET_VISIBILITY_FILTER',
-        filter: ownProps.filter
-      });
+      dispatch(
+        setVisibilityFilter(ownProps.filter)
+      );
     }
   }
 };
