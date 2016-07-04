@@ -80,7 +80,31 @@ const todoApp = combineReducers({
 
 //////////////////////////////////////////////////////////////////////////////
 
+// ACTION CREATORS
 
+let nextTodoID = 0;
+
+const addTodo = (text) => {
+  return {
+    type: 'ADD_TODO',
+    id: nextTodoID++,
+    text
+  };
+};
+
+const setVisibilityFilter = (filter) => {
+  return {
+    type: 'SET_VISIBILITY_FILTER',
+    filter
+  };
+};
+
+const toggleTodo = (id) => {
+  return {
+    type: 'TOGGLE_TODO',
+    id
+  };
+};
 
 //////////////////////////////////////////////////////////////////////////////
 
