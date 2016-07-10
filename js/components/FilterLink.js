@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setVisibilityFilter } from '../index';
+import { setVisibilityFilter } from '../actions';
 import { Link } from './Link';
 
 
@@ -19,3 +19,5 @@ export const FilterLink = connect(
   mapStateToLinkProps,
   mapDispatchToLinkProps
 )(Link);
+
+export default FilterLink;

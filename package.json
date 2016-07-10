@@ -4,7 +4,7 @@
   "description": "",
   "main": "counter.js",
   "scripts": {
-    "start": "webpack --watch"
+    "start": "webpack-dev-server --inline --hot"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "babel-core": "^6.10.4",
