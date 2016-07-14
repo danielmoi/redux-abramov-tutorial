@@ -4,7 +4,7 @@ import { FilterLink } from './FilterLink';
 export const Footer = () => {
   return (
     <p>
-      Show...
+      Show..
       {' '}
       <FilterLink
         filter="SHOW_ALL"
