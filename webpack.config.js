@@ -1,6 +1,6 @@
 module.exports = {
   entry: [
-    './js/_tute-1/vid-6b.js'
+    './js/_tute-1/vid-12a.js'
   ],
   output: {
     path: './dist',
