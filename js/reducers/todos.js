@@ -1,4 +1,6 @@
-// Reducer
+// Reducers
+
+// Single Todo Reducer
 const todo = (state, action) => {
   switch(action.type) {
     case 'ADD_TODO':
@@ -21,6 +23,7 @@ const todo = (state, action) => {
   }
 };
 
+// All Todos Reducer
 const todos = (state=[], action) => {
   switch(action.type) {
     case 'ADD_TODO':
