@@ -10,6 +10,28 @@ const configureStore = () => {
   // (instead of declaring an object literal)
   const persistedState = loadState();
 
+  const addLoggingToDispatch = (store) => {
+    if(!console.group) {
+      return rawDispatch;
+    }
+
+    // dispatch is a function
+    // we will extend it
+    const rawDispatch = store.dispatch;
+
+    // we return another function
+    return (action) => {
+      console.group(action.type);
+      console.log('%c previous state:', 'color: gray', store.getState());
+      console.log('%c action:', 'color: blue', action);
+      // we call dispatch, as per usual
+      const returnValue = rawDispatch(action);
+      console.log('%c next state:', 'color: green', store.getState());
+      console.groupEnd(action.type);
+      return returnValue;
+    };
+  };
+
 
   // Redux allows us to pass the persisted state as the 2nd argument
   // The 1st argument is the root reducer
@@ -17,6 +39,12 @@ const configureStore = () => {
     todoApp,
     persistedState
   );
+
+  // this is an environment check
+  if (process.env.NODE_ENV !== 'production') {
+    // Implement logging, only if not production environment
+    store.dispatch = addLoggingToDispatch(store);
+  }
 
   // This adds a listener that will be called every time the store changes
   // (invoked on any state change)
