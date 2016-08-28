@@ -4,10 +4,6 @@ import { toggleTodo } from '../actions';
 import { getVisibleTodos } from '../reducers';
 import TodoList from './TodoList';
 
-
-
-
-
 const mapStateToTodoListProps = (state, { params }) => ({
   todos: getVisibleTodos(
     state,
