@@ -7,13 +7,13 @@ import { Router, Route, browserHistory } from 'react-router';
 const Root = ({ store }) => (
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path='/' component={App} />
+      <Route path='/(:filter)' component={App} />
     </Router>
   </Provider>
 );
 
 Root.PropTypes = {
-  store: PropTypes: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
 };
 
 export default Root;

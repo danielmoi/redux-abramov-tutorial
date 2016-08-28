@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterLink } from './FilterLink';
+import FilterLink from './FilterLink';
 
 export const Footer = () => {
   return (
@@ -7,7 +7,7 @@ export const Footer = () => {
       Show..
       {' '}
       <FilterLink
-        filter="SHOW_ALL"
+        filter="all"
       >
         ALL
       </FilterLink>
@@ -15,7 +15,7 @@ export const Footer = () => {
         {' '}
 
       <FilterLink
-        filter="SHOW_ACTIVE"
+        filter="active"
       >
         ACTIVE
       </FilterLink>
@@ -23,7 +23,7 @@ export const Footer = () => {
         {' '}
 
       <FilterLink
-        filter="SHOW_COMPLETED"
+        filter="completed"
       >
         COMPLETED
       </FilterLink>
