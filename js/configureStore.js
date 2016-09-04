@@ -3,14 +3,10 @@ import todoApp from './reducers';
 // import { loadState, saveState } from './localStorage';
 // import throttle from 'lodash/throttle';
 
-const addLoggingToDispatch = (store) => {
+const logger = (store) => (next) => {
   if(!console.group) {
-    return rawDispatch;
+    return next;
   }
-
-  // dispatch is a function
-  // we will extend it
-  const rawDispatch = store.dispatch;
 
   // we return another function
   return (action) => {
@@ -18,22 +14,25 @@ const addLoggingToDispatch = (store) => {
     console.log('%c previous state:', 'color: gray', store.getState());
     console.log('%c action:', 'color: blue', action);
     // we call dispatch, as per usual
-    const returnValue = rawDispatch(action);
+    const returnValue = next(action);
     console.log('%c next state:', 'color: green', store.getState());
     console.groupEnd(action.type);
     return returnValue;
   };
 };
 
-const addPromiseSupportToDispatch = (store) => {
-  const rawDispatch = store.dispatch;
-  return (action) => {
-    // check if action is a promise
-    if (typeof action.then === 'function') {
-      return action.then(rawDispatch);
-    }
-    return rawDispatch(action);
+const promise = (store) => (next) => (action) => {
+  // check if action is a promise
+  if (typeof action.then === 'function') {
+    return action.then(next);
   }
+  return next(action);
+};
+
+const wrapDispatchWithMiddlewares = (store, middlewares) => {
+  middlewares.slice().reverse().forEach(middleware => (
+    store.dispatch = middleware(store)(store.dispatch)
+  ))
 }
 
 const configureStore = () => {
@@ -49,13 +48,15 @@ const configureStore = () => {
     todoApp
   );
 
+  const middlewares = [promise];
+
   // this is an environment check
   if (process.env.NODE_ENV !== 'production') {
     // Implement logging, only if not production environment
-    store.dispatch = addLoggingToDispatch(store);
+    middlewares.push(logger);
   }
 
-  store.dispatch = addPromiseSupportToDispatch(store);
+  wrapDispatchWithMiddlewares(store, middlewares);
 
   // This adds a listener that will be called every time the store changes
   // (invoked on any state change)

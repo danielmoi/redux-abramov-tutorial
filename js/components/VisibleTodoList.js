@@ -5,7 +5,6 @@ import { withRouter } from 'react-router';
 import * as actions from '../actions';
 import { getVisibleTodos } from '../reducers';
 import TodoList from './TodoList';
-import { fetchTodos } from '../api';
 
 class VisibleTodoList extends Component {
   componentDidMount() {
