@@ -3,6 +3,8 @@ import { v4 } from 'node-uuid';
 
 // let nextTodoID = 0;
 
+import * as api from '../api'
+
 export const addTodo = (text) => ({
   type: 'ADD_TODO',
   // id: (nextTodoID++).toString(),
@@ -16,7 +18,15 @@ export const toggleTodo = (id) => ({
 });
 
 
-export const receiveTodos = (filter, todos) => ({
+export const fetchTodos = (filter) => (
+  api.fetchTodos(filter)
+    .then(response => (
+      receiveTodos(filter, response)
+    ))
+);
+
+
+const receiveTodos = (filter, todos) => ({
   type: 'RECEIVE_TODOS',
   filter,
   response: todos,
